@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.spideypedia.mobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -37,6 +38,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "36c3e129-1e07-4850-8fdb-78742a7aaff6"
+      }
+    },
+    "owner": "timwes21"
   }
 }
