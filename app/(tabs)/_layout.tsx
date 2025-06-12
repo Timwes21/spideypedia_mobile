@@ -73,7 +73,7 @@ export default function TabLayout() {
     },
     headerTitle: "SPIDEYPEDIA",
     headerTitleStyle: {fontFamily: 'Spider-man-font',
-      textShadowColor: 'black',
+        textShadowColor: 'black',
       textShadowOffset: {width: 0, height: 0}},
   }}>
       <Tabs.Screen
