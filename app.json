@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.timwes21.spideypedia",
+      "bundleIdentifier": "com.spideypedia.mobile",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
