@@ -120,7 +120,7 @@ export default function Agent(){
                 input: currentMessage
             }));
         setMessages(prev=>[
-            ...prev,
+            ...prev,   
             {humanMessage: currentMessage}
         ])
         setCurrentMessage("");
