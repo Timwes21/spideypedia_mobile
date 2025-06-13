@@ -126,7 +126,7 @@ export default function Agent(){
         setCurrentMessage("");
     }
 
-    const undo = () => {
+    const undo = () =>{
         fetch(undoRoute, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
