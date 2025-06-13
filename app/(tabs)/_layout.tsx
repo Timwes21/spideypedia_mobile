@@ -26,7 +26,7 @@ export default function TabLayout() {
     const loggedIn = await AsyncStorage.getItem("comicManagementToken")
     
     if (loggedIn === null){
-      console.log("loggedIn: ", loggedIn);      
+      console.log("loggedIn");      
       router.replace("/login/auth")
     }
   })()

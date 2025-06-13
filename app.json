@@ -4,7 +4,7 @@
     "slug": "spideypedia-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/image.png",
     "scheme": "spideypediamobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

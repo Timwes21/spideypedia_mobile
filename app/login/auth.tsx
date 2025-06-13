@@ -34,7 +34,6 @@ export default function Login(){
             if (status === 200){
                 const { message, token } = data;
                 await AsyncStorage.setItem("comicManagementToken", token);
-                console.log(token);
                 
                 router.replace("/(tabs)");
 
