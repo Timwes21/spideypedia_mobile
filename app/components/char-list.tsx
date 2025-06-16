@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native"
 import { useRef, useState, useEffect } from "react";
 import { useFonts } from "expo-font";
 import CharContents from "./char-contents";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getToken } from "../token";
 
 
 export default function CharList(){
@@ -62,7 +62,7 @@ export default function CharList(){
             const loadChars = async ()=> {
 
                 const wsLink = "wss://spideypedia-production.up.railway.app";
-                const token = await AsyncStorage.getItem("comicManagementToken");
+                const token = await getToken();
                 console.log(token);
                 
                 ws.current = new WebSocket(wsLink);

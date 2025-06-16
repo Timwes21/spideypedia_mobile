@@ -23,7 +23,6 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
     });
     const [ issueDetailsKeys, setIssueDetailsKeys ] = useState<string[]>(Object.keys(issueDetailList));
     const [ issueDetailsValues, setIssueDetailsValues ] = useState<string[]>(Object.values(issueDetailList));
-    const token = "514556c02eab1bf1d1f1e1924938402a73c7980ad42e458cccf98f2e3e18537e59751bb0d9a16cb3ad4079891d8f7a69e0ad289a8413462a9ccb448695841f4d";
 
 
     const styles = StyleSheet.create({

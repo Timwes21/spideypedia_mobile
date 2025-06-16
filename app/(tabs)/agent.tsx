@@ -61,7 +61,7 @@ export default function Agent(){
             
         },
         input: {
-            width: 250,
+            width: '70%',
             height: 40,
             backgroundColor: 'white',
             borderRadius: 10
@@ -86,7 +86,7 @@ export default function Agent(){
             padding: 3,
             borderRadius: 10,
             color: 'white',
-            maxWidth: 300
+            maxWidth: '80%'
         },
         AIMessage: {
             backgroundColor: 'yellow',
@@ -98,7 +98,7 @@ export default function Agent(){
             fontSize: 25,
             padding: 3,
             borderRadius: 10,
-            maxWidth: 300
+            maxWidth: '80%'
         },
         buttonLabel: {
         backgroundColor: '#FFFFA8',

@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { comicsBase, uploadPicRoute } from '@/app/routes';
 import { useFonts } from 'expo-font';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getToken } from '@/app/token';
 
 
 
@@ -27,11 +27,11 @@ export default function AddIssue(){
     }
 
     useEffect(()=> {
-        const getToken = async() => {
-            const fetchedToken = await AsyncStorage.getItem("comicManagementToken")
+        const fetchToken = async() => {
+            const fetchedToken = await getToken();
             fetchedToken && setToken(fetchedToken);
         }
-        getToken();
+        fetchToken();
     }, [])
 
 
@@ -173,8 +173,8 @@ export default function AddIssue(){
             padding: 7,
             borderColor: 'black',
             borderWidth: 3,
-            width: 80,
             textAlign: 'center'
+            
     
         },
         inputContainer: {

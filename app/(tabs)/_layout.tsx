@@ -4,6 +4,7 @@ import { Tabs, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authBase } from '../routes';
+import { removeToken, getToken } from '../token';
 
 
 export default function TabLayout() {
@@ -16,14 +17,14 @@ export default function TabLayout() {
             body: JSON.stringify({token: token})
         })
         .then(async()=>{
-            await AsyncStorage.removeItem("comicManagementToken");
+            removeToken();
             router.replace("/login/auth")
         })
         .catch(err=>console.log("something went wrong", err))
     }
 
   (async()=> {
-    const loggedIn = await AsyncStorage.getItem("comicManagementToken")
+    const loggedIn = await getToken()
     
     if (loggedIn === null){
       console.log("loggedIn");      
@@ -72,7 +73,7 @@ export default function TabLayout() {
       backgroundColor: 'black',
     },
     headerTitle: "SPIDEYPEDIA",
-    headerTitleStyle: {fontFamily: 'Spider-man-font',
+    headerTitleStyle: fontsLoaded && {fontFamily: 'Spider-man-font',
         textShadowColor: 'black',
       textShadowOffset: {width: 0, height: 0}},
   }}>

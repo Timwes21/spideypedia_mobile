@@ -8,6 +8,7 @@
     "scheme": "spideypediamobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "jsEngine": "hermes",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.timwes21.spideypedia",
