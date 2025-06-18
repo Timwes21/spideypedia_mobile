@@ -1,12 +1,13 @@
 import {Text, View, StyleSheet, TextInput, Pressable, ScrollView, KeyboardAvoidingView} from 'react-native';
 import { useState, useEffect, useRef } from 'react';
-import { submitToAgentWs, undoRoute } from '../routes';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import useRoutes from '@/hooks/useRoutes';
+import useToken from '@/hooks/useToken';
 
 export default function Agent(){
     const [ messages, setMessages] = useState<object[]>([]);
     const [ currentMessage, setCurrentMessage ] = useState('');
-    const [ token, setToken ] = useState<string | null>('');
+    const { token } = useToken();
+    const { submitToAgentWs, undoRoute } = useRoutes()
     const ws = useRef<WebSocket | null>(null);
 
     useEffect(()=>{
@@ -25,18 +26,13 @@ export default function Agent(){
             output && setMessages(prev=>[...prev, {AIMessage: output}])
         }
 
-        const getToken = async () => {
-            setToken(await AsyncStorage.getItem("comicManagementToken"))
-        }
-        getToken();
-
         return () => {
             if (ws.current && ws.current.readyState === WebSocket.OPEN) {
                 ws.current.close();
             }
         };
 
-    }, [])
+    }, [submitToAgentWs])
 
 
     

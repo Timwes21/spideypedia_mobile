@@ -3,12 +3,13 @@ import { useFonts } from 'expo-font';
 import { Tabs, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authBase } from '../routes';
 import { removeToken, getToken } from '../token';
+import useRoutes from '@/hooks/useRoutes';
 
 
 export default function TabLayout() {
   const router = useRouter();
+  const {authBase} = useRoutes()
   const logout = async() => {
         const token = await AsyncStorage.getItem("comicManagementToken")
         fetch(authBase + "/logout", {

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {Pressable, View, StyleSheet, ActivityIndicator, TextInput, Text} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { comicsBase, uploadPicRoute } from '@/app/routes';
 import { useFonts } from 'expo-font';
-import { getToken } from '@/app/token';
+import useToken from '@/hooks/useToken';
+import useRoutes from '@/hooks/useRoutes';
 
 
 
 
 export default function AddIssue(){
-    const [ token, setToken ] = useState<string>("")
+    const {token} = useToken();
+    const {comicsBase, uploadPicRoute } = useRoutes()
 
     
 
@@ -26,17 +27,9 @@ export default function AddIssue(){
         issueNumber: string
     }
 
-    useEffect(()=> {
-        const fetchToken = async() => {
-            const fetchedToken = await getToken();
-            fetchedToken && setToken(fetchedToken);
-        }
-        fetchToken();
-    }, [])
-
 
     const [fontsLoaded] = useFonts({
-        "button-font": require("../../../assets/fonts/digistrip.ttf")
+        "button-font": require("../../assets/fonts/digistrip.ttf")
     });
 
     const [ formVisible, setFormVisible ] = useState(false);
@@ -126,7 +119,7 @@ export default function AddIssue(){
     const uploadImage = async (uri: string) => {
         setUploading(true);
     
-        await FileSystem.uploadAsync(uploadPicRoute, uri, {
+        token && await FileSystem.uploadAsync(uploadPicRoute, uri, {
             httpMethod: 'POST',
             uploadType: FileSystem.FileSystemUploadType.MULTIPART,
             fieldName: 'file',
@@ -257,7 +250,6 @@ export default function AddIssue(){
             </Pressable>
         </View>
     )
-
     const showAddMessage = <Text>Adding Issue...</Text>
 
 

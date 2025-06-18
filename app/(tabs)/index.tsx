@@ -1,6 +1,6 @@
 import { Text, StyleSheet, ScrollView, KeyboardAvoidingView } from "react-native";
-import CharList from "../components/char-list";
-import AddIssue from "../components/update-collection/add-issue";
+import CharList from "../../components/char-list";
+import AddIssue from "../../components/update-collection/add-issue";
 
 
 export default function Comics() {

@@ -1,24 +1,20 @@
 import { Pressable, Text, StyleSheet, View } from "react-native";
-import { useState, useEffect } from "react";
-import { comicsBase } from "@/app/routes";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from "react";
+import useToken from "@/hooks/useToken";
+import useRoutes from "@/hooks/useRoutes";
+
 
 export default function DeleteIssue({character, type, title, vol, issueNumber}: Record<string, string>){
     const [visible, setVisible] = useState(false);
-    const [ token, setToken ] = useState<string>("");
+    const { comicsBase } = useRoutes()
 
+    const { token } = useToken();
     
-    useEffect(()=>{
-        const getToken = async () => {
-            const fetchedToken = await AsyncStorage.getItem("comicManagementToken");
-            fetchedToken && setToken(fetchedToken);
-        }
 
-        getToken();
-        
-    }, [])
         
     const deleteIssue = ()=>{
+        console.log(token);
+        
         fetch(comicsBase + "/delete-issue", {
             method: "POST",
             headers: {"Content-Type": "application/json"},

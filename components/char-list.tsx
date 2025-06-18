@@ -2,12 +2,11 @@ import { View, Text, Pressable, StyleSheet } from "react-native"
 import { useRef, useState, useEffect } from "react";
 import { useFonts } from "expo-font";
 import CharContents from "./char-contents";
-import { getToken } from "../token";
-
+import useToken from "@/hooks/useToken";
 
 export default function CharList(){
     const [ characters, setCharacters ] = useState<object>({})
-    
+    const {token} = useToken();
     
 
     const ws = useRef<WebSocket | null>(null);
@@ -21,10 +20,11 @@ export default function CharList(){
         }))
     }
     useFonts({
-        'header': require('../../assets/fonts/Springwood Display DEMO.otf'),
-        'detail-font': require('../../assets/fonts/trebuc.ttf'),
-        'comic-font': require('../../assets/fonts/digistrip.ttf'),
-        'char-font': require('../../assets/fonts/Nexa-Heavy.ttf')
+
+        'header': require('../assets/fonts/Springwood Display DEMO.otf'),
+        'detail-font': require('../assets/fonts/trebuc.ttf'),
+        'comic-font': require('../assets/fonts/digistrip.ttf'),
+        'char-font': require('../assets/fonts/Nexa-Heavy.ttf')
     
     })
     
@@ -53,6 +53,12 @@ export default function CharList(){
             flex: 1,
             justifyContent: 'space-between',
             flexDirection: 'row'
+          },
+          noComics: {
+            alignItems: 'center',
+          },
+          noComicsText: {
+
           }   
         });
     
@@ -62,8 +68,6 @@ export default function CharList(){
             const loadChars = async ()=> {
 
                 const wsLink = "wss://spideypedia-production.up.railway.app";
-                const token = await getToken();
-                console.log(token);
                 
                 ws.current = new WebSocket(wsLink);
                 ws.current.onopen = () =>{
@@ -87,14 +91,14 @@ export default function CharList(){
                     ws.current?.close() 
                 }
 
-          }, [])
+        }, [token])
         
     
+    const characterEntries = (Object.entries(characters).length === 0)
     
 
 
-
-    return(
+    return !characterEntries?(
         <>
             {Object.entries(characters).map(([charName, charContents])=>(
                 <View key={charName} style={styles.charList}>
@@ -105,5 +109,10 @@ export default function CharList(){
                 </View>
             ))}
         </>
-    )
+    ):(
+        <View style={styles.noComics}>
+            <Text style={styles.noComicsText}>No Comics Yet!</Text>
+        </View>
+
+    ) 
 }

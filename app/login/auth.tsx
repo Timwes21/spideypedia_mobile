@@ -1,93 +1,17 @@
 import { View, Text, TextInput, StyleSheet, Pressable, KeyboardAvoidingView } from "react-native";
-import { useState } from "react";
-import { authBase } from "../routes";
 import { useFonts } from "expo-font";
-import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import useAuth from "@/hooks/useAuth";
+
 
 export default function Login(){
-    const router = useRouter();
-    const [creatingAccount, setCreatingAccount ] = useState<boolean>(false)
-    const [ username, setUsername ] = useState<string>("");
-    const [ password, setPassword ] = useState<string>("");
-    const [ email, setEmail ] = useState<string>("");
-    const [ number, setNumber ] = useState<string>("")
-    const [ error, setError ] = useState<boolean>(false);
-    const [ createAccountError, setCreateAccountError ] = useState<boolean>(false);
-    const login = () => {
-        if (username.length < 1 && password.length < 1){
-            setError(true);
-            return;
-        }
-
-        fetch(authBase + "/login", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username: username, password: password})
-        })
-        .then(async(response)=>{
-            
-            
-            const status = response.status;
-            const data = await response.json()
-            
-            if (status === 200){
-                const { message, token } = data;
-                await AsyncStorage.setItem("comicManagementToken", token);
-                
-                router.replace("/(tabs)");
-
-            }
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    }
-
-    const createAccount = () => {
-        if (username.length < 6 || password.length < 6){
-            setCreateAccountError(true);
-            return;
-        }
-        
-        
-        fetch(authBase + "/create-user", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username: username, password: password, email: email, phoneNumber: number})
-        })
-        .then(async(response) => {
-            const status = response.status;
-            const data = await response.json();
-            if (status === 200){
-                await AsyncStorage.setItem("comicManagementToken", data.token);
-                router.replace("/(tabs)");
-            }
-            return data.message;
-        })
-        .catch(err=>{
-            console.log(err);    
-        })
-    }
-
-    const switchTo = () => {
-        setCreatingAccount(!creatingAccount);
-        setError(false);
-        setCreateAccountError(false);
-        setUsername("");
-        setPassword("");
-        setEmail("");
-        setNumber("");
-    }
-
-
+    const {error, creatingAccount, createAccountError, userData, setCreatingAccount, login, createAccount, switchTo, settingUserData} = useAuth();    
     const [ fontsLoaded ] = useFonts({
         'Spider-man-font': require('../../assets/fonts/The Amazing Spider-Man.ttf'),
         'header': require('../../assets/fonts/Springwood Display DEMO.otf'),
         'detail-font': require('../../assets/fonts/trebuc.ttf'),
         'comic-font': require('../../assets/fonts/digistrip.ttf'),
         'char-font': require('../../assets/fonts/Nexa-Heavy.ttf')
-      })
+    })
     const styles = StyleSheet.create({
         container: {
             backgroundColor: "rgb(219, 0, 0)",
@@ -114,9 +38,6 @@ export default function Login(){
             shadowOpacity: .8,       // Shadow transparency (0 to 1)
             shadowRadius: 3,
             textAlign: 'center'
-
-
-            
         },
         input: {
             backgroundColor: 'white',
@@ -159,9 +80,9 @@ export default function Login(){
             <View style={styles.authBody}>
                 <Text style={styles.authHeader}>Login</Text>
                 <Text style={styles.authSubHeading}>Username</Text>
-                <TextInput testID="username-login" style={styles.input} value={username} onChangeText={text=>setUsername(text)}/>
+                <TextInput testID="username-login" style={styles.input} value={userData.username} onChangeText={text=>settingUserData("username", text)}/>
                 <Text style={styles.authSubHeading}>Password</Text>
-                <TextInput testID="password-login" textContentType='password' style={styles.input} value={password} onChangeText={text=>setPassword(text)}/>
+                <TextInput testID="password-login" textContentType='password' style={styles.input} value={userData.password} onChangeText={text=>settingUserData("password", text)}/>
 
                 <View style={{gap: 10, alignItems: 'center', margin: 10}}>
                     <Pressable>
@@ -181,13 +102,13 @@ export default function Login(){
             <View style={styles.authBody}>
                 <Text style={styles.authHeader}>Create Account</Text>
                 <Text style={styles.authSubHeading}>Username</Text>
-                <TextInput testID="username-create-account" style={styles.input} value={username} onChangeText={text=>setUsername(text)}/>
+                <TextInput testID="username-create-account" style={styles.input} value={userData.username} onChangeText={text=>settingUserData("username", text)}/>
                 <Text style={styles.authSubHeading}>Password</Text>
-                <TextInput testID="password-create-account" textContentType='password' style={styles.input} value={password} onChangeText={text=>setPassword(text)}/>
+                <TextInput testID="password-create-account" textContentType='password' style={styles.input} value={userData.password} onChangeText={text=>settingUserData("password", text)}/>
                 <Text style={styles.authSubHeading}>Email</Text>
-                <TextInput placeholder="Optional" placeholderTextColor="rgb(187, 187, 187)" style={styles.input} value={email} onChangeText={text=>setEmail(text)}/>
+                <TextInput placeholder="Optional" placeholderTextColor="rgb(187, 187, 187)" style={styles.input} value={userData.email} onChangeText={text=>settingUserData("email", text)}/>
                 <Text style={styles.authSubHeading}>Phone Number</Text>
-                <TextInput placeholder="Optional" placeholderTextColor="rgb(187, 187, 187)" style={styles.input} value={number} onChangeText={text=>setNumber(text)}/>
+                <TextInput placeholder="Optional" placeholderTextColor="rgb(187, 187, 187)" style={styles.input} value={userData.number} onChangeText={text=>settingUserData("number", text)}/>
 
                 <View style={{gap: 10, alignItems: 'center', margin: 10}}>
 

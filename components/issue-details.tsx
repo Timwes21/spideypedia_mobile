@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, Pressable, TextInput } from "react-native"
 import { useState } from "react";
-import { comicsBase } from "../routes";
+import useToken from "../hooks/useToken";
+import useRoutes from "@/hooks/useRoutes";
 
 type IssueDetailsProps = Readonly<{
     visibleDetails: boolean , 
@@ -23,7 +24,9 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
     });
     const [ issueDetailsKeys, setIssueDetailsKeys ] = useState<string[]>(Object.keys(issueDetailList));
     const [ issueDetailsValues, setIssueDetailsValues ] = useState<string[]>(Object.values(issueDetailList));
-
+    const {token} = useToken();
+    const { comicsBase } = useRoutes()
+    
 
     const styles = StyleSheet.create({
         issueDetailsContainer: {
@@ -96,7 +99,7 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
         setIssueDetailList({...combine});
 
         const formData = new FormData();
-        formData.append('token', token);
+        token && formData.append('token', token);
         formData.append('characterData', JSON.stringify({
             character: character, 
             type: type, 
