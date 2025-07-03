@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import {Pressable, View, StyleSheet, ActivityIndicator, TextInput, Text} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import useRoutes from '@/hooks/useRoutes';
+import useToken from '@/hooks/useToken';
 import * as FileSystem from 'expo-file-system';
 import { useFonts } from 'expo-font';
-import useToken from '@/hooks/useToken';
-import useRoutes from '@/hooks/useRoutes';
+import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 
 

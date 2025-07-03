@@ -1,8 +1,8 @@
-import { View, Text, Pressable, StyleSheet } from "react-native"
-import { useRef, useState, useEffect } from "react";
-import { useFonts } from "expo-font";
-import CharContents from "./char-contents";
 import useToken from "@/hooks/useToken";
+import { useFonts } from "expo-font";
+import { useEffect, useRef, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import CharContents from "./char-contents";
 
 export default function CharList(){
     const [ characters, setCharacters ] = useState<object>({})
@@ -75,7 +75,6 @@ export default function CharList(){
                 }
                 
                 ws.current.onmessage = (event) =>{
-                    console.log(JSON.parse(event.data));
                     const data = JSON.parse(event.data);
                     console.log(typeof data.message);
                     
