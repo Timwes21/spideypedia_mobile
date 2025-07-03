@@ -1,7 +1,7 @@
-import {Text, View, StyleSheet, TextInput, Pressable, ScrollView, KeyboardAvoidingView} from 'react-native';
-import { useState, useEffect, useRef } from 'react';
 import useRoutes from '@/hooks/useRoutes';
 import useToken from '@/hooks/useToken';
+import { useEffect, useRef, useState } from 'react';
+import { KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Agent(){
     const [ messages, setMessages] = useState<object[]>([]);
@@ -53,7 +53,8 @@ export default function Agent(){
             alignItems: 'center',
             justifyContent: 'space-around',
             height: 60,
-            flexDirection: 'row'
+            flexDirection: 'row',
+            
             
         },
         input: {
@@ -96,15 +97,30 @@ export default function Agent(){
             borderRadius: 10,
             maxWidth: '80%'
         },
+        buttonCon: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
         buttonLabel: {
-        backgroundColor: '#FFFFA8',
-        fontFamily: 'comic-font',
-        padding: 3,
-        borderColor: 'black',
-        borderWidth: 3,
+            backgroundColor: '#FFFFA8',
+            fontFamily: 'comic-font',
+            padding: '1%',
+            borderColor: 'black',
+            borderWidth: 3,
+            // height: '80%',
+            display: 'flex',
+            textAlign: 'center',
+            alignContent: 'center',
+            alignItems :'center',
+            justifyContent: 'center',
+            textAlignVertical: 'center',
+        
+
+        
         // flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end'
+        
+        
         },
     })
 
@@ -148,7 +164,7 @@ export default function Agent(){
             
                 <TextInput onChangeText={text=>setCurrentMessage(text)} value={currentMessage} style={styles.input}/>
             
-                <Pressable onPress={()=> currentMessage.length > 0 && send()}>
+                <Pressable style={styles.buttonCon} onPress={()=> currentMessage.length > 0 && send()}>
                     <Text style={styles.buttonLabel}>Send</Text>
                 </Pressable>
             </View>

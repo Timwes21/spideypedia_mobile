@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, Pressable, TextInput } from "react-native"
-import { useState } from "react";
-import useToken from "../hooks/useToken";
 import useRoutes from "@/hooks/useRoutes";
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import useToken from "../hooks/useToken";
 
 type IssueDetailsProps = Readonly<{
     visibleDetails: boolean , 
@@ -34,7 +34,7 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
             backgroundColor: '#FFFFA8',
             margin: 10,
             padding: 5,
-            borderWidth: 3
+            borderWidth: 3,
         },
         issueDetails: {
             fontSize: 20,
@@ -58,7 +58,7 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
         },
         input: {
             backgroundColor: 'white',
-            width: 150,
+            width: '47%',
             margin: 5,
             height: 25,
             fontSize: 20
@@ -141,7 +141,7 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
                         style={styles.input} 
                         value={issueDetailsValues[index]}
                         onChangeText={text=>setIssueDetailsValues(prev=>updateDetailList(text, prev, index))}/>
-                    </View>  
+                    </View>
                     <Pressable onPress={()=>deleteDetail(index)} style={{...styles.button, padding: 1}}>
                         <Text style={{...styles.buttonLabel, backgroundColor: 'red'}}>Delete</Text>
                     </Pressable>
@@ -167,5 +167,5 @@ export default function IssueDetails({visibleDetails, issueDetails, character, t
 
     const setDetails = edit? inputDetails: details
         
-    return visibleDetails && setDetails
+    return visibleDetails && setDetails;
 }
