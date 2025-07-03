@@ -13,7 +13,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.timwes21.spideypedia",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "This app uses the camera to take pictures of your profile, receipts, or whatever your app does."
       }
     },
     "android": {
